@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+import 'FirebaseUI.dart';
 
-class MyApp extends StatelessWidget {
+void main() {
+  runApp(MaterialApp(
+    title: 'Named Routes Demo',
+    initialRoute: '/',
+    routes: {
+      '/': (context) => Home(),
+      '/firebaseUI': (context) => FirebaseUI(),
+    },
+  ));
+}
 
+class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("PRUEABA App"),
-          centerTitle: true,
-          backgroundColor: Colors.red,
-        ),
-
-        body: Center(
-          child: Column(
-            children: <Widget>[
-              RaisedButton(
-                onPressed: null,
-                child: Text("Hola"),
-              )
-            ],
-          ),
-        ),
-
-        floatingActionButton: FloatingActionButton(
-          onPressed: (){},
-          child: Text("Click"),
-          backgroundColor: Colors.pinkAccent,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          child: Text('FirebaseUI'),
+          onPressed: () {
+            // Navigate to the second screen using a named route.
+            Navigator.pushNamed(context, '/firebaseUI');
+          },
         ),
       ),
     );
   }
 }
+
