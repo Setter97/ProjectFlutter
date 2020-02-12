@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class FirebaseConnectDB{
   final databaseReference=Firestore.instance;
   int count=0;
+  
   void createRecord()async{
     await databaseReference.collection("labs")
     .document("Quimica").collection("Items");
@@ -18,6 +19,20 @@ class FirebaseConnectDB{
       'description':'$description',
       'componentes':'$componentes',
       'cantidad':'$quantity'
+    });
+    
+  }
+
+
+   void createLab(laboratorio, localizacion,observaciones,foto)async{
+    count++;
+    await databaseReference.collection("labs")
+    .document("$laboratorio")
+    .setData({
+      'nombreLab':'$laboratorio',
+      'localizacion':'$localizacion',
+      'observaciones':'$observaciones',
+      'img':'$foto'
     });
     
   }

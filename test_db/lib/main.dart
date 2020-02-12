@@ -40,10 +40,10 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(children: <Widget>[
           RaisedButton(
-            /*
+            
             onPressed: (){
-              //Navigator.push(context, MaterialPageRoute(builder: (context)=>newLab()));
-            },*/
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>newLab()));
+            },
             child: Text("Añadir laboratorio"),
           ),
 
