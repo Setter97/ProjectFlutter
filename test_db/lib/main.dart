@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:test_db/firebaseDB/mostraItems.dart';
+import 'package:test_db/firebaseDB/mostraLabs.dart';
 import 'package:test_db/firebaseDB/newItem.dart';
 import 'firebaseDB/newLab.dart';
 
@@ -13,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Firebase Demo Home Page'),
+      home: MyHomePage(title: 'Firebase Demo Lab App'),
     );
   }
 }
@@ -52,6 +54,23 @@ class _MyHomePageState extends State<MyHomePage> {
               Navigator.push(context, MaterialPageRoute(builder: (context)=>newItem()));
             },
             child: Text("Añadir item a laboratorio"),
+          ),
+
+
+           RaisedButton(
+            
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>MostraLabs()));
+            },
+            child: Text("Mostrar Laboratorios"),
+          ),
+
+          RaisedButton(
+           /* 
+            onPressed: (){
+              //Navigator.push(context, MaterialPageRoute(builder: (context)=>MostraItems()));
+            },*/
+            child: Text("Mostrar Items de cosa"),
           ),
         ],),
       ),
