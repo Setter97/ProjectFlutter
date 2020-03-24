@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseConnectDB {
   final databaseReference = Firestore.instance;
+  
   int count = 0;
 
   void createRecord() async {

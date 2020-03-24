@@ -1,31 +1,25 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:test_db/main.dart';
-import 'firebaseConnectDB.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'ShowItemDetails.dart';
+import '../util/ScreenArguments.dart';
+import '../firebaseDB/firebaseConnectDB.dart';
+class ShowItems extends StatelessWidget {
+  static const routeName='/showItems';
 
-
-class MostraItems extends StatefulWidget {
-  final DocumentSnapshot post;
-  MostraItems({this.post});
-  @override
-  _MostraItemsState createState() => _MostraItemsState();
-}
-
-class _MostraItemsState extends State<MostraItems> {
-  FirebaseConnectDB fireDB = FirebaseConnectDB();
-
-navigateToDetail(DocumentSnapshot post){
-  Navigator.push(super.context, MaterialPageRoute(builder: (context)=>MyApp()));
+  navigateToDetail(DocumentSnapshot post,context){
+    Navigator.pushNamed(context, ShowItemDetails.routeName,arguments: ScreenArguments(post));
 }
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
+     ScreenArguments args=ModalRoute.of(context).settings.arguments;
+    FirebaseConnectDB fireDB = new FirebaseConnectDB();
+return Scaffold(
         appBar: new AppBar(
-          title: new Text("Items de "+widget.post.data['nombreLab']),
+          title: new Text("Items de "+args.superPost.data['nombreLab']),
         ),
         body: Container(
           child: FutureBuilder(
-              future: fireDB.llistaItems(widget.post.data['nombreLab']),
+              future: fireDB.llistaItems(args.superPost.data['nombreLab']),
               builder: (_, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -39,7 +33,7 @@ navigateToDetail(DocumentSnapshot post){
                           child: ListTile(
                           title: Text(snapshot.data[index].data['title']),
                           subtitle: Text(snapshot.data[index].data['description']),
-                          //onTap: navigateToDetail(snapshot.data[index]),
+                          onTap:()=> navigateToDetail(snapshot.data[index],context),
                         ));
                       });
                 }
