@@ -4,7 +4,23 @@ import 'package:test_db/firebaseDB/mostraLabs.dart';
 import 'package:test_db/firebaseDB/newItem.dart';
 import 'firebaseDB/newLab.dart';
 
-void main() => runApp(MyApp());
+//void main() => runApp(MyApp());
+
+
+void main() {
+  runApp(MaterialApp(
+    title: 'asdhgksh',
+    // Start the app with the "/" named route. In this case, the app starts
+    // on the FirstScreen widget.
+    initialRoute: '/',
+    routes: {
+      // When navigating to the "/" route, build the FirstScreen widget.
+      '/': (context) => MyApp(),
+      // When navigating to the "/second" route, build the SecondScreen widget.
+      '/firebaseDB/newLab': (context) => newLab(),
+    },
+  ));
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -44,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
           RaisedButton(
             
             onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>newLab()));
+             Navigator.pushNamed(context, "/añadirLab");
             },
             child: Text("Añadir laboratorio"),
           ),
