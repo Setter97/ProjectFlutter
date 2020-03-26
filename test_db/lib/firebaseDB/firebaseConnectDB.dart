@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirebaseConnectDB {
   final databaseReference = Firestore.instance;
-  
+
   int count = 0;
 
   void createRecord() async {
@@ -26,6 +26,25 @@ class FirebaseConnectDB {
       'description': '$description',
       'componentes': '$componentes',
       'cantidad': '$quantity'
+    });
+  }
+
+  void createMaterial(String laboratorio, String nombre, String tipo, String localizacion, String cantidad, String referencia, String observaciones, String foto, String fechaCompra) async {
+    count++;
+    await databaseReference
+        .collection("labs")
+        .document("$laboratorio")
+        .collection("Material")
+        .document("$nombre")
+        .setData({
+      'title': '$nombre',
+      'tipo': '$tipo',
+      'localizacion': '$localizacion',
+      'observaciones': '$observaciones',
+      'referencia': '$referencia',
+      'cantidad': '$cantidad',
+      'foto': '$foto',
+      'fechaCompra': '$fechaCompra'
     });
   }
 
@@ -64,5 +83,20 @@ class FirebaseConnectDB {
         .collection('Materiales')
         .getDocuments();
     return qn.documents;
+  }
+
+  void deleteIM(nomLab,thisDoc,lugar)async{
+    await databaseReference
+        .collection('labs')
+        .document('$nomLab')
+        .collection('$lugar')
+        .document(thisDoc).delete();
+  }
+
+  void deleteLab(nomLab)async{
+    await databaseReference
+        .collection('labs')
+        .document('$nomLab')
+        .delete();
   }
 }

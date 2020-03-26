@@ -4,6 +4,8 @@ import 'screens/ShowItems.dart';
 import 'screens/ShowLabs.dart';
 import 'screens/AddItem.dart';
 import 'screens/AddLab.dart';
+import 'screens/SelectItemOrMaterial.dart';
+import 'screens/ShowMaterial.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,11 +17,12 @@ void main() {
       AddItem.routeName: (context) => AddItem(),
       ShowLabs.routeName: (context) => ShowLabs(),
       ShowItems.routeName: (context) => ShowItems(),
+      ShowMaterial.routeName:(context)=>ShowMaterial(),
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
+      SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
     },
   ));
 }
-
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -29,26 +32,28 @@ class HomeScreen extends StatelessWidget {
         title: Text('Home Screen'),
       ),
       body: Center(
-        child: Column(children: <Widget>[
-          RaisedButton(
-          child: Text('Añadir lab'),
-          onPressed: () {
-            Navigator.pushNamed(context, '/addLab');
-          },
+        child: Column(
+          children: <Widget>[
+            RaisedButton(
+              child: Text('Añadir lab'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/addLab');
+              },
+            ),
+            RaisedButton(
+              child: Text('Añadir item'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/addItem');
+              },
+            ),
+            RaisedButton(
+              child: Text('Mostrar Laboratorios'),
+              onPressed: () {
+                Navigator.pushNamed(context, ShowLabs.routeName);
+              },
+            ),
+          ],
         ),
-          RaisedButton(
-          child: Text('Añadir item'),
-          onPressed: () {
-            Navigator.pushNamed(context, '/addItem');
-          },
-        ),
-          RaisedButton(
-          child: Text('Mostrar Laboratorios'),
-          onPressed: () {
-            Navigator.pushNamed(context, ShowLabs.routeName);
-          },
-        ),
-        ],),
       ),
     );
   }

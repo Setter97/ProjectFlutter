@@ -4,30 +4,29 @@ import 'ShowItemDetails.dart';
 import '../util/ScreenArguments.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
 
-class ShowItems extends StatelessWidget {
-  static const routeName = '/showItems';
+class ShowMaterial extends StatelessWidget {
+  static const routeName = '/showMaterial';
 
   navigateToDetail(DocumentSnapshot post, context) {
     Navigator.pushNamed(context, ShowItemDetails.routeName,
         arguments: ScreenArguments(post));
   }
 
-  delete(nomLab, DocumentSnapshot post, context, FirebaseConnectDB fireDB) {
-    fireDB.deleteIM(nomLab, post.data["title"], "Items");
+  delete(nomLab,DocumentSnapshot post, context,FirebaseConnectDB fireDB) {
+    fireDB.deleteIM(nomLab, post.data["title"], "Materiales");
     Navigator.pushNamed(context, "/");
   }
-
   @override
   Widget build(BuildContext context) {
     ScreenArguments args = ModalRoute.of(context).settings.arguments;
     FirebaseConnectDB fireDB = new FirebaseConnectDB();
     return Scaffold(
         appBar: new AppBar(
-          title: new Text("Items de " + args.superPost.data['nombreLab']),
+          title: new Text("Materiales de " + args.superPost.data['nombreLab']),
         ),
         body: Container(
           child: FutureBuilder(
-              future: fireDB.llistaItems(args.superPost.data['nombreLab']),
+              future: fireDB.llistaMateriales(args.superPost.data['nombreLab']),
               builder: (_, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -41,10 +40,10 @@ class ShowItems extends StatelessWidget {
                             child: ListTile(
                           title: Text(snapshot.data[index].data['title']),
                           subtitle:
-                              Text(snapshot.data[index].data['description']),
+                              Text(snapshot.data[index].data['localizacion']),
                           onTap: () =>
                               navigateToDetail(snapshot.data[index], context),
-                              onLongPress: ()=>delete(args.superPost.data['nombreLab'], snapshot.data[index], context, fireDB),
+                              onLongPress: ()=>delete(args.superPost.data['nombreLab'],snapshot.data[index], context,fireDB),
                         ));
                       });
                 }
