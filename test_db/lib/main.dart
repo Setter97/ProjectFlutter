@@ -6,6 +6,7 @@ import 'screens/AddItem.dart';
 import 'screens/AddLab.dart';
 import 'screens/SelectItemOrMaterial.dart';
 import 'screens/ShowMaterial.dart';
+import 'screens/SignInScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -20,6 +21,7 @@ void main() {
       ShowMaterial.routeName:(context)=>ShowMaterial(),
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
+      SignInScreen.routeName:(context)=>SignInScreen(),
     },
   ));
 }
@@ -50,6 +52,12 @@ class HomeScreen extends StatelessWidget {
               child: Text('Mostrar Laboratorios'),
               onPressed: () {
                 Navigator.pushNamed(context, ShowLabs.routeName);
+              },
+            ),
+            RaisedButton(
+              child: Text('Pantalla sign in'),
+              onPressed: () {
+                Navigator.pushNamed(context, SignInScreen.routeName);
               },
             ),
           ],
