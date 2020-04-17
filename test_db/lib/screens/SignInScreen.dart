@@ -34,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Image(image: AssetImage("assets/logo.png"), height: 200.0),
+              Image(image: AssetImage("assets/logoWeb.gif"), height: 400.0),
               SizedBox(height: 50),
               _signInButton(),
             ],

@@ -8,6 +8,7 @@ import 'screens/SelectItemOrMaterial.dart';
 import 'screens/ShowMaterial.dart';
 import 'screens/SignInScreen.dart';
 
+
 void main() {
   runApp(MaterialApp(
     title: 'Named Routes Demo',
@@ -27,6 +28,7 @@ void main() {
 }
 
 class HomeScreen extends StatelessWidget {
+  static const routeName="/homeScreen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
