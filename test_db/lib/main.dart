@@ -23,6 +23,7 @@ void main() {
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
       SignInScreen.routeName: (context) => SignInScreen(),
+      ShowCountDetails.routeName:(context)=> ShowCountDetails(),
     },
   ));
 }
@@ -65,7 +66,7 @@ class HomeScreen extends StatelessWidget {
             RaisedButton(
               child: Text('Pantalla datos usuario'),
               onPressed: () {
-                Navigator.pushNamed(context, SignInScreen.routeName);
+                Navigator.pushNamed(context, ShowCountDetails.routeName);
               },
             ),
           ],
