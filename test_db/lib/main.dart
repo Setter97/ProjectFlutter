@@ -7,7 +7,7 @@ import 'screens/AddLab.dart';
 import 'screens/SelectItemOrMaterial.dart';
 import 'screens/ShowMaterial.dart';
 import 'screens/SignInScreen.dart';
-
+import 'screens/ShowCountDetails.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -19,16 +19,16 @@ void main() {
       AddItem.routeName: (context) => AddItem(),
       ShowLabs.routeName: (context) => ShowLabs(),
       ShowItems.routeName: (context) => ShowItems(),
-      ShowMaterial.routeName:(context)=>ShowMaterial(),
+      ShowMaterial.routeName: (context) => ShowMaterial(),
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
-      SignInScreen.routeName:(context)=>SignInScreen(),
+      SignInScreen.routeName: (context) => SignInScreen(),
     },
   ));
 }
 
 class HomeScreen extends StatelessWidget {
-  static const routeName="/homeScreen";
+  static const routeName = "/homeScreen";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +58,12 @@ class HomeScreen extends StatelessWidget {
             ),
             RaisedButton(
               child: Text('Pantalla sign in'),
+              onPressed: () {
+                Navigator.pushNamed(context, SignInScreen.routeName);
+              },
+            ),
+            RaisedButton(
+              child: Text('Pantalla datos usuario'),
               onPressed: () {
                 Navigator.pushNamed(context, SignInScreen.routeName);
               },
