@@ -119,6 +119,12 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
     return 'signInWithGoogle succeeded: $user';
   }
 
+  Future<FirebaseUser> getUser() async{
+    FirebaseUser user;
+    user=await _auth.currentUser();
+    return user;
+  }
+
   void signOutGoogle() async {
     await googleSignIn.signOut();
 
