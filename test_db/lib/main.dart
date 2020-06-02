@@ -12,7 +12,7 @@ import 'screens/ShowCountDetails.dart';
 
 void main() {
   runApp(MaterialApp(
-    title: 'Named Routes Demo',
+    title: 'Named Routes',
     initialRoute: '/',
     routes: {
       '/': (context) => HomeScreen(),
@@ -31,12 +31,12 @@ void main() {
 
 class HomeScreen extends StatelessWidget {
   static const routeName = "/homeScreen";
-  var obj = LogInGoogle().signInWithGoogle();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: Text('Pantalla principal'),
       ),
       body: Center(
         child: Column(
@@ -60,15 +60,27 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             RaisedButton(
-              child: Text('Pantalla sign in'),
+              child: Text('Sign in'),
+              color: Colors.blue,
+              textColor: Colors.white,
               onPressed: () {
-                Navigator.pushNamed(context, SignInScreen.routeName);
+                LogInGoogle().signInWithGoogle();
               },
             ),
             RaisedButton(
-              child: Text('Pantalla datos usuario'),
+              child: Text('Sign out'),
+              textColor: Colors.white,
+              color: Colors.red,
               onPressed: () {
-                Navigator.pushNamed(context, ShowCountDetails.routeName);
+                //Navigator.pushNamed(context, SignInScreen.routeName);
+                LogInGoogle().signOutGoogle();
+              },
+            ),
+            RaisedButton(
+              child: Text('Detalles de la cuenta'),
+              onPressed: () {
+                LogInGoogle().signInWithGoogle().whenComplete(() =>
+                    Navigator.pushNamed(context, ShowCountDetails.routeName));
               },
             ),
           ],

@@ -8,7 +8,7 @@ class FirebaseConnectDB {
   String obj=LogInGoogle().getInfo();
 
   void createRecord() async {
-    await databaseReference
+    databaseReference
         .collection("labs")
         .document("Quimica")
         .collection("Items");

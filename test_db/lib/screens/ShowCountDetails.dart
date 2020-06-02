@@ -1,8 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:test_db/screens/SignInScreen.dart';
-import '../firebaseDB/firebaseConnectDB.dart';
-import'package:flutter/services.dart';
 import '../util/logInGoogle.dart';
 
 class ShowCountDetails extends StatelessWidget {
@@ -12,7 +8,7 @@ class ShowCountDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {  
     if(nom==null){
-      nom="Error;Tienes que iniciar sesion antes de poder utilizar esta seccion;Error en el inicio de sesion";
+      nom="Error;Tienes que iniciar sesión antes de poder utilizar esta sección;Error en el inicio de sesión";
     }
     info=nom.split(";");
     return Scaffold(
@@ -21,7 +17,7 @@ class ShowCountDetails extends StatelessWidget {
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-          child: new Text("Nombre:\t"+info[1]+"\nUUID:\t"+info[2]),
+          child: new Text("Nombre:\t"+info[1]+".\nUUID:\t"+info[2]+"."),
         ));
   }
 }

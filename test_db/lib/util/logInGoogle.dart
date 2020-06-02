@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:test_db/screens/SignInScreen.dart';
 
 class LogInGoogle {
   static final LogInGoogle _instance=LogInGoogle._internal();
@@ -40,12 +39,12 @@ factory LogInGoogle(){
   }
 
 String getInfo(){
-  signInWithGoogle();
+  //signInWithGoogle();
   return info;
 }
   void signOutGoogle() async {
+    info=null;
     await googleSignIn.signOut();
-
     print("User Sign Out");
   }
 }
