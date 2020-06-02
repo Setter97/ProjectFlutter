@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_db/main.dart';
 import '../util/ScreenArguments.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
 import 'SelectItemOrMaterial.dart';
@@ -13,7 +14,7 @@ class ShowLabs extends StatelessWidget {
 
   deleteLab(DocumentSnapshot post,context,FirebaseConnectDB fireDB){
     fireDB.deleteLab(post.data["nombreLab"]);
-    Navigator.pushNamed(context,"/");
+    Navigator.pop(context);
   }
 
   @override
@@ -40,7 +41,9 @@ class ShowLabs extends StatelessWidget {
                             title: Text(snapshot.data[index].data['nombreLab']),
                             onTap: () =>
                                 navigateToSelect(snapshot.data[index], context),
-                            onLongPress:()=>deleteLab(snapshot.data[index], context, fireDB) ,
+                            onLongPress:()=>{
+                              deleteLab(snapshot.data[index], context, fireDB) ,
+                              }
                           ),
                         );
                       });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_db/main.dart';
 import 'ShowItemDetails.dart';
 import '../util/ScreenArguments.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
@@ -14,13 +15,13 @@ class ShowItems extends StatelessWidget {
 
   delete(nomLab, DocumentSnapshot post, context, FirebaseConnectDB fireDB) {
     fireDB.deleteIM(nomLab, post.data["title"], "Items");
-    Navigator.pushNamed(context, "/");
   }
+
 
   @override
   Widget build(BuildContext context) {
     ScreenArguments args = ModalRoute.of(context).settings.arguments;
-    FirebaseConnectDB fireDB = new FirebaseConnectDB();
+    var fireDB = FirebaseConnectDB();
     return Scaffold(
         appBar: new AppBar(
           title: new Text("Items de " + args.superPost.data['nombreLab']),
@@ -44,11 +45,16 @@ class ShowItems extends StatelessWidget {
                               Text(snapshot.data[index].data['description']),
                           onTap: () =>
                               navigateToDetail(snapshot.data[index], context),
-                              onLongPress: ()=>delete(args.superPost.data['nombreLab'], snapshot.data[index], context, fireDB),
+                              onLongPress: ()=>{
+                                delete(args.superPost.data['nombreLab'], snapshot.data[index], context, fireDB),
+                                Navigator.pop(context),
+                                }
+                              
                         ));
                       });
                 }
               }),
+              
         ));
   }
 }

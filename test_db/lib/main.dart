@@ -34,6 +34,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LogInGoogle().signInWithGoogle();
     return Scaffold(
       appBar: AppBar(
         title: Text('Pantalla principal'),
@@ -44,7 +45,7 @@ class HomeScreen extends StatelessWidget {
             RaisedButton(
               child: Text('Añadir lab'),
               onPressed: () {
-                Navigator.pushNamed(context, '/addLab');
+                Navigator.of(context).pushNamed('/addLab');
               },
             ),
             RaisedButton(
@@ -79,8 +80,12 @@ class HomeScreen extends StatelessWidget {
             RaisedButton(
               child: Text('Detalles de la cuenta'),
               onPressed: () {
-                LogInGoogle().signInWithGoogle().whenComplete(() =>
-                    Navigator.pushNamed(context, ShowCountDetails.routeName));
+                if (LogInGoogle().getInfo() == null) {
+                  LogInGoogle().signInWithGoogle().whenComplete(() =>
+                      Navigator.pushNamed(context, ShowCountDetails.routeName));
+                } else {
+                  Navigator.pushNamed(context, ShowCountDetails.routeName);
+                }
               },
             ),
           ],

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:test_db/main.dart';
+import 'package:test_db/util/logInGoogle.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
 
 class AddLab extends StatelessWidget {
-  static const routeName='/addLab';
+  static const routeName = '/addLab';
   @override
   Widget build(BuildContext context) {
-    FirebaseConnectDB fireDB = new FirebaseConnectDB();
+    var fireDB = FirebaseConnectDB();
     var laboratorio;
     var localizacion;
     var observaciones;
@@ -28,7 +30,7 @@ class AddLab extends StatelessWidget {
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 onChanged: (val) {
-                  laboratorio=val;
+                  laboratorio = val;
                 },
               ),
               TextFormField(
@@ -37,7 +39,7 @@ class AddLab extends StatelessWidget {
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 onChanged: (val) {
-                  localizacion=val;
+                  localizacion = val;
                 },
               ),
               TextFormField(
@@ -46,7 +48,7 @@ class AddLab extends StatelessWidget {
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 onChanged: (val) {
-                  observaciones=val;
+                  observaciones = val;
                 },
               ),
               TextFormField(
@@ -55,15 +57,18 @@ class AddLab extends StatelessWidget {
                 ),
                 textCapitalization: TextCapitalization.sentences,
                 onChanged: (val) {
-                  foto=val;
+                  foto = val;
                 },
               ),
               SizedBox(
                 height: 20.0,
               ),
               RaisedButton(
-                onPressed: (){
-                  fireDB.createLab(laboratorio, localizacion, observaciones, foto);
+                onPressed: () {
+                    fireDB.createLab(
+                        laboratorio, localizacion, observaciones, foto);
+                    Navigator.of(context).pop();
+                  
                 },
                 child: Text('Crear laboratorio'),
               )

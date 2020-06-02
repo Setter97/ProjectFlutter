@@ -5,7 +5,7 @@ class FirebaseConnectDB {
   final databaseReference = Firestore.instance;
 
   int count = 0;
-  String obj=LogInGoogle().getInfo();
+  String obj = LogInGoogle().getInfo();
 
   void createRecord() async {
     databaseReference
@@ -31,7 +31,16 @@ class FirebaseConnectDB {
     });
   }
 
-  void createMaterial(String laboratorio, String nombre, String tipo, String localizacion, String cantidad, String referencia, String observaciones, String foto, String fechaCompra) async {
+  void createMaterial(
+      String laboratorio,
+      String nombre,
+      String tipo,
+      String localizacion,
+      String cantidad,
+      String referencia,
+      String observaciones,
+      String foto,
+      String fechaCompra) async {
     count++;
     await databaseReference
         .collection("labs")
@@ -51,19 +60,26 @@ class FirebaseConnectDB {
   }
 
   void createLab(laboratorio, localizacion, observaciones, foto) async {
-    
-    var info=obj.split(";");
-    await databaseReference
-        .collection("labs")
-        .document("$laboratorio")
-        .setData({
-      'nombreLab': '$laboratorio',
-      'localizacion': '$localizacion',
-      'observaciones': '$observaciones',
-      'img': '$foto'
-    });
+    if (obj != null) {
+      print("Ha entrat");
+      var info = obj.split(";");
+      await databaseReference
+          .collection("labs")
+          .document("$laboratorio")
+          .setData({
+        'nombreLab': '$laboratorio',
+        'localizacion': '$localizacion',
+        'observaciones': '$observaciones',
+        'img': '$foto'
+      });
 
-    await databaseReference.collection("log").document(info[1]).collection("Añadido").document(laboratorio).setData({'Prueba LOG': 'Prueba 1'});
+      await databaseReference
+          .collection("log")
+          .document(info[1])
+          .collection("Añadido")
+          .document(laboratorio)
+          .setData({'Prueba LOG': 'Prueba 1'});
+    }
   }
 
   Future llistaLabs() async {
@@ -90,23 +106,35 @@ class FirebaseConnectDB {
     return qn.documents;
   }
 
-  void deleteIM(nomLab,thisDoc,lugar)async{
-    var info=obj.split(";");
-    await databaseReference
-        .collection('labs')
-        .document('$nomLab')
-        .collection('$lugar')
-        .document(thisDoc).delete();
-    await databaseReference.collection("log").document(info[1]).collection("Eliminado").document(thisDoc).setData({'Eliminado LOG': '$nomLab','Eliminado':'$thisDoc'});
+  void deleteIM(nomLab, thisDoc, lugar) async {
+    if (obj != null) {
+      var info = obj.split(";");
+      await databaseReference
+          .collection('labs')
+          .document('$nomLab')
+          .collection('$lugar')
+          .document(thisDoc)
+          .delete();
+      await databaseReference
+          .collection("log")
+          .document(info[1])
+          .collection("Eliminado")
+          .document(thisDoc)
+          .setData({'Eliminado LOG': '$nomLab', 'Eliminado': '$thisDoc'});
+    }
   }
 
-  void deleteLab(nomLab)async{
-     var info=obj.split(";");
-    await databaseReference
-        .collection('labs')
-        .document('$nomLab')
-        .delete();
+  void deleteLab(nomLab) async {
+    if (obj != null) {
+      var info = obj.split(";");
+      await databaseReference.collection('labs').document('$nomLab').delete();
 
-    await databaseReference.collection("log").document(info[1]).collection("Eliminado").document(nomLab).setData({'Eliminado LOG': '$nomLab'});
+      await databaseReference
+          .collection("log")
+          .document(info[1])
+          .collection("Eliminado")
+          .document(nomLab)
+          .setData({'Eliminado LOG': '$nomLab'});
+    }
   }
 }
