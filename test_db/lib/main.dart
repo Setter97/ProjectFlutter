@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_db/util/logInGoogle.dart';
 import 'screens/ShowItemDetails.dart';
 import 'screens/ShowItems.dart';
 import 'screens/ShowLabs.dart';
@@ -23,13 +24,14 @@ void main() {
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
       SignInScreen.routeName: (context) => SignInScreen(),
-      ShowCountDetails.routeName:(context)=> ShowCountDetails(),
+      ShowCountDetails.routeName: (context) => ShowCountDetails(),
     },
   ));
 }
 
 class HomeScreen extends StatelessWidget {
   static const routeName = "/homeScreen";
+  var obj = LogInGoogle().signInWithGoogle();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

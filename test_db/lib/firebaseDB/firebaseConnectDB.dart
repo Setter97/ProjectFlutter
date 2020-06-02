@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:test_db/util/logInGoogle.dart';
 
 class FirebaseConnectDB {
   final databaseReference = Firestore.instance;
 
   int count = 0;
+  String obj=LogInGoogle().getInfo();
 
   void createRecord() async {
     await databaseReference
@@ -49,7 +51,8 @@ class FirebaseConnectDB {
   }
 
   void createLab(laboratorio, localizacion, observaciones, foto) async {
-    count++;
+    
+    var info=obj.split(";");
     await databaseReference
         .collection("labs")
         .document("$laboratorio")
@@ -59,6 +62,8 @@ class FirebaseConnectDB {
       'observaciones': '$observaciones',
       'img': '$foto'
     });
+
+    await databaseReference.collection("log").document(info[1]).collection("Añadido").document(laboratorio).setData({'Prueba LOG': 'Prueba 1'});
   }
 
   Future llistaLabs() async {
@@ -86,17 +91,22 @@ class FirebaseConnectDB {
   }
 
   void deleteIM(nomLab,thisDoc,lugar)async{
+    var info=obj.split(";");
     await databaseReference
         .collection('labs')
         .document('$nomLab')
         .collection('$lugar')
         .document(thisDoc).delete();
+    await databaseReference.collection("log").document(info[1]).collection("Eliminado").document(thisDoc).setData({'Eliminado LOG': '$nomLab','Eliminado':'$thisDoc'});
   }
 
   void deleteLab(nomLab)async{
+     var info=obj.split(";");
     await databaseReference
         .collection('labs')
         .document('$nomLab')
         .delete();
+
+    await databaseReference.collection("log").document(info[1]).collection("Eliminado").document(nomLab).setData({'Eliminado LOG': '$nomLab'});
   }
 }

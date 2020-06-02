@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../util/ScreenArguments.dart';
+
 
 class ShowItemDetails extends StatelessWidget {
   static const routeName = '/showItemDetails';

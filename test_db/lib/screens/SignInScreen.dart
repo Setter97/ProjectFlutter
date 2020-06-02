@@ -95,7 +95,10 @@ class FirstScreen extends StatelessWidget {
 }
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
-  final GoogleSignIn googleSignIn = GoogleSignIn();
+final GoogleSignIn googleSignIn = GoogleSignIn();
+
+String name;
+String email;
 
   Future<String> signInWithGoogle() async {
     final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
@@ -115,16 +118,16 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 
     final FirebaseUser currentUser = await _auth.currentUser();
     assert(user.uid == currentUser.uid);
-
+    name=user.displayName;
+    email=user.email;
+    getName();
     return 'signInWithGoogle succeeded: $user';
   }
 
-  Future<FirebaseUser> getUser() async{
-    FirebaseUser user;
-    user=await _auth.currentUser();
-    return user;
-  }
-
+Future<String> getName()async{
+  print("$name;$email");
+  return "$name;$email";
+}
   void signOutGoogle() async {
     await googleSignIn.signOut();
 
