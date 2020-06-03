@@ -39,7 +39,7 @@ class SelectItemOrMaterial extends StatelessWidget {
           children: <Widget>[
             Card(
               child: ListTile(
-                title: Text("Items"),
+                title: Text("Reactivos"),
                 onTap: () => navigateToItems(args.superPost, context),
               ),
             ),

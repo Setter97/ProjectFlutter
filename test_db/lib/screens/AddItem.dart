@@ -1,30 +1,40 @@
 import 'package:flutter/material.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
-import'package:flutter/services.dart';
+import 'package:flutter/services.dart';
 
 class AddItem extends StatelessWidget {
-  static const routeName='/addItem';
+  static const routeName = '/addItem';
   @override
   Widget build(BuildContext context) {
-     var nameItem = "";
-    var description = "";
-    var componentes = "";
-    var quantity = "0";
     var laboratorio = "";
-    FirebaseConnectDB fireDB = new FirebaseConnectDB();
+    var nombre = "";
+    var categoria = "";
+    var localizacion = "";
+    var unidades = "0";
+    var cantidades = "";
+    var referencia = "";
+    var casaCom = "";
+    var fechaCad = "";
+    var observaciones = "";
+    var fotografia = "";
+    var fichaSeg = "";
+    //FirebaseConnectDB fireDB = new FirebaseConnectDB();
     return Scaffold(
         appBar: AppBar(
           title: Text("Añadir item"),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
-          child: Form(
+          child: ListView(
+            shrinkWrap:true,
+            children:<Widget> [
+              Form(
             child: Column(
               children: <Widget>[
                 SizedBox(
                   height: 20.0,
                 ),
-                 TextFormField(
+                TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Laboratorio',
                   ),
@@ -39,37 +49,98 @@ class AddItem extends StatelessWidget {
                   ),
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
-                    nameItem = val;
+                    nombre = val;
                   },
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Descripcion',
+                    labelText: 'Categoria',
+                  ),
+                  onChanged: (val) {
+                    categoria = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Localizacion',
                   ),
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
-                    description = val;
+                    localizacion = val;
                   },
                 ),
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Componentes',
+                    labelText: 'Cantidades',
                   ),
-                  textCapitalization: TextCapitalization.sentences,
-                  onChanged: (val) {
-                    componentes = val;
-                  },
-                ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Cantidad',
-                  ),
+                  
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     WhitelistingTextInputFormatter.digitsOnly
                   ],
                   onChanged: (val) {
-                    quantity = val;
+                    unidades = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Unidadaes',
+                  ),
+                  onChanged: (val) {
+                    unidades = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Referencia',
+                  ),
+                  onChanged: (val) {
+                    referencia = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Casa Comercial',
+                  ),
+                  textCapitalization: TextCapitalization.sentences,
+                  onChanged: (val) {
+                    casaCom = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Fecha de Caducidad',
+                    hintText: "dd-mm-yyyy",
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (val) {
+                    fechaCad = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Observaciones',
+                  ),
+                  textCapitalization: TextCapitalization.sentences,
+                  onChanged: (val) {
+                    observaciones = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Fotografia *WIP*',
+                  ),
+                  onChanged: (val) {
+                    fotografia = val;
+                  },
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Ficha de seguridad',
+                  ),
+                  textCapitalization: TextCapitalization.sentences,
+                  onChanged: (val) {
+                    fichaSeg = val;
                   },
                 ),
                 SizedBox(height: 20.0),
@@ -80,13 +151,28 @@ class AddItem extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
-                    fireDB.createItem(laboratorio,
-                        nameItem, description, componentes, quantity);
+                    FirebaseConnectDB().createItem(
+                        laboratorio,
+                        nombre,
+                        categoria,
+                        localizacion,
+                        unidades,
+                        cantidades,
+                        referencia,
+                        casaCom,
+                        fechaCad,
+                        observaciones,
+                        fotografia,
+                        fichaSeg);
+
+                        Navigator.pop(context);
                   },
                 ),
               ],
             ),
           ),
+            ],
+          )
         ));
   }
 }

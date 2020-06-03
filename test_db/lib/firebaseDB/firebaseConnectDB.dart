@@ -15,20 +15,28 @@ class FirebaseConnectDB {
     print("Creado laboratorio");
   }
 
-  void createItem(String laboratorio, String nameItem, String description,
-      String componentes, String quantity) async {
-    count++;
-    await databaseReference
-        .collection("labs")
-        .document("$laboratorio")
-        .collection("Items")
-        .document("$nameItem")
-        .setData({
-      'title': '$nameItem',
-      'description': '$description',
-      'componentes': '$componentes',
-      'cantidad': '$quantity'
-    });
+  void createItem(String laboratorio, String nombre, String categoria,
+      String localizacion, String unidades, String cantidades, String referencia,String casaCom, String fechaCad, String observaciones, String fotografia, String fichaSeg) async {
+    if (obj != null) {
+      await databaseReference
+          .collection("labs")
+          .document("$laboratorio")
+          .collection("Reactivos")
+          .document("$nombre")
+          .setData({
+        'nombre': '$nombre',
+        'categoria': '$categoria',
+        'localizacion': '$localizacion',
+        'unidades': '$unidades',
+        'cantidades': '$cantidades',
+        'referencia': '$referencia',
+        'casa comercial': '$casaCom',
+        'fecha de caducidad': '$fechaCad',
+        'observaciones': '$observaciones',
+        'fotografia': '$fotografia',
+        'ficha de seguridad': '$fichaSeg',
+      });
+    }
   }
 
   void createMaterial(
@@ -41,22 +49,24 @@ class FirebaseConnectDB {
       String observaciones,
       String foto,
       String fechaCompra) async {
-    count++;
-    await databaseReference
-        .collection("labs")
-        .document("$laboratorio")
-        .collection("Material")
-        .document("$nombre")
-        .setData({
-      'title': '$nombre',
-      'tipo': '$tipo',
-      'localizacion': '$localizacion',
-      'observaciones': '$observaciones',
-      'referencia': '$referencia',
-      'cantidad': '$cantidad',
-      'foto': '$foto',
-      'fechaCompra': '$fechaCompra'
-    });
+    if (obj != null) {
+      count++;
+      await databaseReference
+          .collection("labs")
+          .document("$laboratorio")
+          .collection("Material")
+          .document("$nombre")
+          .setData({
+        'title': '$nombre',
+        'tipo': '$tipo',
+        'localizacion': '$localizacion',
+        'observaciones': '$observaciones',
+        'referencia': '$referencia',
+        'cantidad': '$cantidad',
+        'foto': '$foto',
+        'fechaCompra': '$fechaCompra'
+      });
+    }
   }
 
   void createLab(laboratorio, localizacion, observaciones, foto) async {
@@ -78,7 +88,7 @@ class FirebaseConnectDB {
           .document(info[1])
           .collection("Añadido")
           .document(laboratorio)
-          .setData({'Prueba LOG': 'Prueba 1'});
+          .setData({'Añadido LOG': 'Añadido $laboratorio'});
     }
   }
 
@@ -92,7 +102,7 @@ class FirebaseConnectDB {
     QuerySnapshot qn = await databaseReference
         .collection('labs')
         .document('$nomLab')
-        .collection('Items')
+        .collection('Reactivos')
         .getDocuments();
     return qn.documents;
   }
