@@ -15,15 +15,50 @@ class FirebaseConnectDB {
     print("Creado laboratorio");
   }
 
-  void createItem(String laboratorio, String nombre, String categoria,
-      String localizacion, String unidades, String cantidades, String referencia,String casaCom, String fechaCad, String observaciones, String fotografia, String fichaSeg) async {
+  void createItem(
+      String laboratorio,
+      String nombre,
+      String categoria,
+      String localizacion,
+      String unidades,
+      String cantidades,
+      String referencia,
+      String casaCom,
+      String fechaCad,
+      String observaciones,
+      String fotografia,
+      String fichaSeg) async {
     if (obj != null) {
+      var info = obj.split(";");
+      var date = new DateTime.now().toString().split(".")[0];
       await databaseReference
           .collection("labs")
           .document("$laboratorio")
           .collection("Reactivos")
           .document("$nombre")
           .setData({
+        'nombre': '$nombre',
+        'categoria': '$categoria',
+        'localizacion': '$localizacion',
+        'unidades': '$unidades',
+        'cantidades': '$cantidades',
+        'referencia': '$referencia',
+        'casa comercial': '$casaCom',
+        'fecha de caducidad': '$fechaCad',
+        'observaciones': '$observaciones',
+        'fotografia': '$fotografia',
+        'ficha de seguridad': '$fichaSeg',
+      });
+
+      await databaseReference
+          .collection("log")
+          .document(info[1])
+          .collection("Añadido")
+          .document('$date $laboratorio $nombre')
+          .setData({
+        'Laboratorio': '$laboratorio',
+        'Reactivo': '$nombre',
+        'Fecha de creación': '$date',
         'nombre': '$nombre',
         'categoria': '$categoria',
         'localizacion': '$localizacion',
@@ -71,7 +106,6 @@ class FirebaseConnectDB {
 
   void createLab(laboratorio, localizacion, observaciones, foto) async {
     if (obj != null) {
-      print("Ha entrat");
       var info = obj.split(";");
       await databaseReference
           .collection("labs")
@@ -118,6 +152,8 @@ class FirebaseConnectDB {
 
   void deleteIM(nomLab, thisDoc, lugar) async {
     if (obj != null) {
+      var date = new DateTime.now().toString().split(".")[0];
+
       var info = obj.split(";");
       await databaseReference
           .collection('labs')
@@ -129,8 +165,12 @@ class FirebaseConnectDB {
           .collection("log")
           .document(info[1])
           .collection("Eliminado")
-          .document(thisDoc)
-          .setData({'Eliminado LOG': '$nomLab', 'Eliminado': '$thisDoc'});
+          .document('$date $nomLab $thisDoc')
+          .setData({
+        'Laboratorio': '$nomLab',
+        'Item': '$thisDoc',
+        'Fecha de eliminacion': '$date'
+      });
     }
   }
 

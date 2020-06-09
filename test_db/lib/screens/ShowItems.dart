@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:test_db/main.dart';
 import 'ShowItemDetails.dart';
 import '../util/ScreenArguments.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
@@ -14,7 +13,8 @@ class ShowItems extends StatelessWidget {
   }
 
   delete(nomLab, DocumentSnapshot post, context, FirebaseConnectDB fireDB) {
-    fireDB.deleteIM(nomLab, post.data["title"], "Items");
+    fireDB.deleteIM(nomLab, post.data["nombre"], "Reactivos");
+    Navigator.pop(context);
   }
 
   @override
@@ -51,7 +51,6 @@ class ShowItems extends StatelessWidget {
                                           snapshot.data[index],
                                           context,
                                           fireDB),
-                                      Navigator.pop(context),
                                     }));
                       });
                 }

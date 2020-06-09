@@ -79,7 +79,7 @@ class AddItem extends StatelessWidget {
                     WhitelistingTextInputFormatter.digitsOnly
                   ],
                   onChanged: (val) {
-                    unidades = val;
+                    cantidades = val;
                   },
                 ),
                 TextFormField(
@@ -165,7 +165,7 @@ class AddItem extends StatelessWidget {
                         fotografia,
                         fichaSeg);
 
-                        Navigator.pop(context);
+                        //Navigator.pop(context);
                   },
                 ),
               ],
