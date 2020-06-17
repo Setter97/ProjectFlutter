@@ -7,7 +7,7 @@ import 'screens/AddItem.dart';
 import 'screens/AddLab.dart';
 import 'screens/SelectItemOrMaterial.dart';
 import 'screens/ShowMaterial.dart';
-import 'screens/SignInScreen.dart';
+
 import 'screens/ShowCountDetails.dart';
 
 void main() {
@@ -23,7 +23,6 @@ void main() {
       ShowMaterial.routeName: (context) => ShowMaterial(),
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
-      SignInScreen.routeName: (context) => SignInScreen(),
       ShowCountDetails.routeName: (context) => ShowCountDetails(),
     },
   ));

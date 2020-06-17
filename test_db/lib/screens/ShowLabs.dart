@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:test_db/main.dart';
 import '../util/ScreenArguments.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
 import 'SelectItemOrMaterial.dart';

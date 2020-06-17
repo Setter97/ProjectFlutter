@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:test_db/main.dart';
-import 'package:test_db/util/logInGoogle.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
 
 class AddLab extends StatelessWidget {
