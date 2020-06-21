@@ -4,17 +4,9 @@ import 'package:test_db/util/logInGoogle.dart';
 class FirebaseConnectDB {
   final databaseReference = Firestore.instance;
 
-  int count = 0;
   String obj = LogInGoogle().getInfo();
 
-  void createRecord() async {
-    databaseReference
-        .collection("labs")
-        .document("Quimica")
-        .collection("Items");
-    print("Creado laboratorio");
-  }
-
+  //Crea un ítem con los datos pasados por parametros
   void createItem(
       String laboratorio,
       String nombre,
@@ -31,6 +23,7 @@ class FirebaseConnectDB {
     if (obj != null) {
       var info = obj.split(";");
       var date = new DateTime.now().toString().split(".")[0];
+      //Creación del ítem en la base de datos
       await databaseReference
           .collection("labs")
           .document("$laboratorio")
@@ -49,7 +42,8 @@ class FirebaseConnectDB {
         'fotografia': '$fotografia',
         'ficha de seguridad': '$fichaSeg',
       });
-
+      
+      //Log
       await databaseReference
           .collection("log")
           .document(info[1])
@@ -74,6 +68,7 @@ class FirebaseConnectDB {
     }
   }
 
+  //Crea un material con los datos pasados por parámetro
   void createMaterial(
       String laboratorio,
       String nombre,
@@ -85,7 +80,7 @@ class FirebaseConnectDB {
       String foto,
       String fechaCompra) async {
     if (obj != null) {
-      count++;
+      //Creacion del material en la base de datos
       await databaseReference
           .collection("labs")
           .document("$laboratorio")
@@ -104,9 +99,11 @@ class FirebaseConnectDB {
     }
   }
 
+  // Crea un laboratorio con los datos pasados por parámetro.
   void createLab(laboratorio, localizacion, observaciones, foto) async {
     if (obj != null) {
       var info = obj.split(";");
+      //Creacion en la base de datos
       await databaseReference
           .collection("labs")
           .document("$laboratorio")
@@ -117,6 +114,7 @@ class FirebaseConnectDB {
         'img': '$foto'
       });
 
+      //Log
       await databaseReference
           .collection("log")
           .document(info[1])
@@ -126,12 +124,14 @@ class FirebaseConnectDB {
     }
   }
 
+  //Lista los laboratorios de la basde de datos
   Future llistaLabs() async {
     QuerySnapshot qn =
         await databaseReference.collection('labs').getDocuments();
     return qn.documents;
   }
 
+  //Lista los ítems del laboratorio pasado por parámetro
   Future llistaItems(nomLab) async {
     QuerySnapshot qn = await databaseReference
         .collection('labs')
@@ -141,6 +141,7 @@ class FirebaseConnectDB {
     return qn.documents;
   }
 
+//Lista de materiales laboratorio pasado por parámetro
   Future llistaMateriales(nomLab) async {
     QuerySnapshot qn = await databaseReference
         .collection('labs')
@@ -150,10 +151,12 @@ class FirebaseConnectDB {
     return qn.documents;
   }
 
+//Borra Items o Materiales
   void deleteIM(nomLab, thisDoc, lugar) async {
     if (obj != null) {
       var date = new DateTime.now().toString().split(".")[0];
 
+      //Borra ítem o material
       var info = obj.split(";");
       await databaseReference
           .collection('labs')
@@ -161,6 +164,7 @@ class FirebaseConnectDB {
           .collection('$lugar')
           .document(thisDoc)
           .delete();
+      //Log
       await databaseReference
           .collection("log")
           .document(info[1])
@@ -173,12 +177,15 @@ class FirebaseConnectDB {
       });
     }
   }
-
+  
+  //Borra LAB
   void deleteLab(nomLab) async {
     if (obj != null) {
       var info = obj.split(";");
+      //Borra de la base de datos
       await databaseReference.collection('labs').document('$nomLab').delete();
-
+      
+      //Log
       await databaseReference
           .collection("log")
           .document(info[1])

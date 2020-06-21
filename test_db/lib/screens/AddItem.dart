@@ -147,7 +147,7 @@ class AddItem extends StatelessWidget {
                 RaisedButton(
                   color: Colors.pink,
                   child: Text(
-                    'Introducir item',
+                    'Introducir ítem',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
