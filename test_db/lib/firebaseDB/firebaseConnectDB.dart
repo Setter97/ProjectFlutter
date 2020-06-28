@@ -41,6 +41,7 @@ class FirebaseConnectDB {
         'observaciones': '$observaciones',
         'fotografia': '$fotografia',
         'ficha de seguridad': '$fichaSeg',
+        'lab': '$laboratorio'
       });
       
       //Log
