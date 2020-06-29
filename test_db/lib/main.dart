@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:test_db/firebaseDB/firebaseConnectDB.dart';
+import 'package:test_db/screens/AddMaterial.dart';
 import 'package:test_db/util/logInGoogle.dart';
 import 'screens/ShowItemDetails.dart';
 import 'screens/ShowItems.dart';
@@ -25,6 +26,7 @@ void main() {
       ShowItemDetails.routeName: (context) => ShowItemDetails(),
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
       ShowCountDetails.routeName: (context) => ShowCountDetails(),
+      AddMaterial.routeName: (context) => AddMaterial(),
     },
   ));
 }
@@ -52,6 +54,12 @@ class HomeScreen extends StatelessWidget {
               child: Text('Añadir item'),
               onPressed: () {
                 Navigator.pushNamed(context, '/addItem');
+              },
+            ),
+            RaisedButton(
+              child: Text('Añadir material'),
+              onPressed: () {
+                Navigator.pushNamed(context, AddMaterial.routeName);
               },
             ),
             RaisedButton(

@@ -25,7 +25,7 @@ class FirebaseConnectDB {
       var date = new DateTime.now().toString().split(".")[0];
       //Creación del ítem en la base de datos
       await databaseReference
-          .collection("labs")
+          .collection("labsTest")
           .document("$laboratorio")
           .collection("Reactivos")
           .document("$nombre")
@@ -73,29 +73,61 @@ class FirebaseConnectDB {
   void createMaterial(
       String laboratorio,
       String nombre,
-      String tipo,
+      String categoria,
       String localizacion,
-      String cantidad,
+      String unidades,
+      String cantidades,
       String referencia,
+      String casaCom,
+      String fechaCad,
       String observaciones,
-      String foto,
-      String fechaCompra) async {
+      String fotografia,
+      String fichaSeg) async {
     if (obj != null) {
-      //Creacion del material en la base de datos
+      var info = obj.split(";");
+      var date = new DateTime.now().toString().split(".")[0];
+      //Creación del material en la base de datos
       await databaseReference
-          .collection("labs")
+          .collection("labsTest")
           .document("$laboratorio")
-          .collection("Material")
+          .collection("Reactivos")
           .document("$nombre")
           .setData({
-        'title': '$nombre',
-        'tipo': '$tipo',
+        'nombre': '$nombre',
+        'categoria': '$categoria',
         'localizacion': '$localizacion',
-        'observaciones': '$observaciones',
+        'unidades': '$unidades',
+        'cantidades': '$cantidades',
         'referencia': '$referencia',
-        'cantidad': '$cantidad',
-        'foto': '$foto',
-        'fechaCompra': '$fechaCompra'
+        'casa comercial': '$casaCom',
+        'fecha de caducidad': '$fechaCad',
+        'observaciones': '$observaciones',
+        'fotografia': '$fotografia',
+        'ficha de seguridad': '$fichaSeg',
+        'lab': '$laboratorio'
+      });
+      
+      //Log
+      await databaseReference
+          .collection("log")
+          .document(info[1])
+          .collection("Añadido")
+          .document('$date $laboratorio $nombre')
+          .setData({
+        'Laboratorio': '$laboratorio',
+        'Reactivo': '$nombre',
+        'Fecha de creación': '$date',
+        'nombre': '$nombre',
+        'categoria': '$categoria',
+        'localizacion': '$localizacion',
+        'unidades': '$unidades',
+        'cantidades': '$cantidades',
+        'referencia': '$referencia',
+        'casa comercial': '$casaCom',
+        'fecha de caducidad': '$fechaCad',
+        'observaciones': '$observaciones',
+        'fotografia': '$fotografia',
+        'ficha de seguridad': '$fichaSeg',
       });
     }
   }
@@ -106,7 +138,7 @@ class FirebaseConnectDB {
       var info = obj.split(";");
       //Creacion en la base de datos
       await databaseReference
-          .collection("labs")
+          .collection("labsTest")
           .document("$laboratorio")
           .setData({
         'nombreLab': '$laboratorio',
@@ -128,14 +160,14 @@ class FirebaseConnectDB {
   //Lista los laboratorios de la basde de datos
   Future llistaLabs() async {
     QuerySnapshot qn =
-        await databaseReference.collection('labs').getDocuments();
+        await databaseReference.collection('labsTest').getDocuments();
     return qn.documents;
   }
 
   //Lista los ítems del laboratorio pasado por parámetro
   Future llistaItems(nomLab) async {
     QuerySnapshot qn = await databaseReference
-        .collection('labs')
+        .collection('labsTest')
         .document('$nomLab')
         .collection('Reactivos')
         .getDocuments();
@@ -145,7 +177,7 @@ class FirebaseConnectDB {
 //Lista de materiales laboratorio pasado por parámetro
   Future llistaMateriales(nomLab) async {
     QuerySnapshot qn = await databaseReference
-        .collection('labs')
+        .collection('labsTest')
         .document('$nomLab')
         .collection('Materiales')
         .getDocuments();
@@ -160,7 +192,7 @@ class FirebaseConnectDB {
       //Borra ítem o material
       var info = obj.split(";");
       await databaseReference
-          .collection('labs')
+          .collection('labsTest')
           .document('$nomLab')
           .collection('$lugar')
           .document(thisDoc)
@@ -184,7 +216,7 @@ class FirebaseConnectDB {
     if (obj != null) {
       var info = obj.split(";");
       //Borra de la base de datos
-      await databaseReference.collection('labs').document('$nomLab').delete();
+      await databaseReference.collection('labsTest').document('$nomLab').delete();
       
       //Log
       await databaseReference
