@@ -13,8 +13,10 @@ class ShowItems extends StatelessWidget {
   }
 
   delete(nomLab, DocumentSnapshot post, context, FirebaseConnectDB fireDB) {
+    print(nomLab);
+    print(post.data["nombre"]);
     fireDB.deleteIM(nomLab, post.data["nombre"], "Reactivos");
-    Navigator.pop(context);
+    //Navigator.pop(context);
   }
 
   @override
@@ -26,29 +28,29 @@ class ShowItems extends StatelessWidget {
           title: new Text("Reactivos de " + args.superPost.data['nombreLab']),
         ),
         body: Container(
-          child: FutureBuilder(
-              future: fireDB.llistaItems(args.superPost.data['nombreLab']),
-              builder: (_, snapshot) {
+          child: StreamBuilder(
+              stream: fireDB.llistaItems2(args.superPost.data['nombreLab']),
+              builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
                     child: Text("Loading..."),
                   );
                 } else {
                   return ListView.builder(
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data.documents.length,
                       itemBuilder: (_, index) {
                         return Card(
                             child: ListTile(
                                 title:
-                                    Text(snapshot.data[index].data['nombre']),
+                                    Text(snapshot.data.documents[index]['nombre']),
                                 subtitle: Text(
-                                    snapshot.data[index].data['observaciones']),
+                                    snapshot.data.documents[index]['observaciones']),
                                 onTap: () => navigateToDetail(
-                                    snapshot.data[index], context),
+                                    snapshot.data.documents[index], context),
                                 onLongPress: () => {
                                       delete(
-                                          args.superPost.data['nombreLab'],
-                                          snapshot.data[index],
+                                          snapshot.data.documents[index]['lab'],
+                                          snapshot.data.documents[index],
                                           context,
                                           fireDB),
                                     }));

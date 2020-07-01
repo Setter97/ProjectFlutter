@@ -158,20 +158,13 @@ class FirebaseConnectDB {
   }
 
   //Lista los laboratorios de la basde de datos
-  Future llistaLabs() async {
-    QuerySnapshot qn =
-        await databaseReference.collection('labsTest').getDocuments();
-    return qn.documents;
+ Stream<QuerySnapshot> llistaLabs(){
+    return databaseReference.collection('labsTest').snapshots();
   }
 
   //Lista los ítems del laboratorio pasado por parámetro
-  Future llistaItems(nomLab) async {
-    QuerySnapshot qn = await databaseReference
-        .collection('labsTest')
-        .document('$nomLab')
-        .collection('Reactivos')
-        .getDocuments();
-    return qn.documents;
+  Stream<QuerySnapshot> llistaItems2(nomLab){
+    return databaseReference.collection('labsTest').document("$nomLab").collection("Reactivos").snapshots();
   }
 
 //Lista de materiales laboratorio pasado por parámetro

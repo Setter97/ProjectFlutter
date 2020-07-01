@@ -24,8 +24,8 @@ class ShowLabs extends StatelessWidget {
           title: Text("Lista de laboratorios"),
         ),
         body: Container(
-          child: FutureBuilder(
-              future: fireDB.llistaLabs(),
+          child: StreamBuilder(
+              stream: fireDB.llistaLabs(),
               builder: (_, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return Center(
@@ -33,15 +33,15 @@ class ShowLabs extends StatelessWidget {
                   );
                 } else {
                   return ListView.builder(
-                      itemCount: snapshot.data.length,
+                      itemCount: snapshot.data.documents.length,
                       itemBuilder: (_, index) {
                         return Card(
                           child: ListTile(
-                            title: Text(snapshot.data[index].data['nombreLab']),
+                            title: Text(snapshot.data.documents[index]['nombreLab']),
                             onTap: () =>
-                                navigateToSelect(snapshot.data[index], context),
+                                navigateToSelect(snapshot.data.documents[index], context),
                             onLongPress:()=>{
-                              deleteLab(snapshot.data[index], context, fireDB) ,
+                              deleteLab(snapshot.data.documents[index], context, fireDB) ,
                               }
                           ),
                         );
