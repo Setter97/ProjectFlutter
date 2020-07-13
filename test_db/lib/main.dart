@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:test_db/firebaseDB/firebaseConnectDB.dart';
 import 'package:test_db/screens/AddMaterial.dart';
+import 'package:test_db/screens/EditItem.dart';
 import 'package:test_db/util/logInGoogle.dart';
 import 'screens/ShowItemDetails.dart';
 import 'screens/ShowItems.dart';
@@ -27,7 +28,7 @@ void main() {
       SelectItemOrMaterial.routeName: (context) => SelectItemOrMaterial(),
       ShowCountDetails.routeName: (context) => ShowCountDetails(),
       AddMaterial.routeName: (context) => AddMaterial(),
- 
+      EditItem.routeName:(context)=> EditItem(),
     },
   ));
 }

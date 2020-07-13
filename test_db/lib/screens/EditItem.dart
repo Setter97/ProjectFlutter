@@ -1,29 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:test_db/util/ScreenArguments.dart';
 import '../firebaseDB/firebaseConnectDB.dart';
 import 'package:flutter/services.dart';
 
 class EditItem extends StatelessWidget {
   static const routeName = '/editItem';
-  EditItem(laboratorio,nombre,categoria,localizacion,unidades,cantidades,referencia,casaCom,fechaCad,observaciones,fotografia,fichaSeg);
-  var laboratorio = "";
-    var nombre = "";
-    var categoria = "";
-    var localizacion = "";
-    var unidades = "0";
-    var cantidades = "";
-    var referencia = "";
-    var casaCom = "";
-    var fechaCad = "";
-    var observaciones = "";
-    var fotografia = "";
-    var fichaSeg = "";
+  //EditItem(laboratorio,nombre,categoria,localizacion,unidades,cantidades,referencia,casaCom,fechaCad,observaciones,fotografia,fichaSeg);
+
+  
+
   @override
   Widget build(BuildContext context) {
+    ScreenArguments args = ModalRoute.of(context).settings.arguments;
+    var laboratorio = args.superPost.data['lab'];
+    var nombre = args.superPost.data['nombre'];
+    var categoria = args.superPost.data['categoria'];
+    var localizacion = args.superPost.data['localizacion'];
+    var unidades = args.superPost.data['unidades'];
+    var cantidades = args.superPost.data['cantidades'];
+    var referencia = args.superPost.data['referencia'];
+    var casaCom = args.superPost.data['casa comercial'];
+    var fechaCad = args.superPost.data['fecha de caducidad'];
+    var observaciones = args.superPost.data['observaciones'];
+    var fotografia = args.superPost.data['fotografia'];
+    var fichaSeg = args.superPost.data['ficha de seguridad'];
     
     //FirebaseConnectDB fireDB = new FirebaseConnectDB();
     return Scaffold(
         appBar: AppBar(
-          title: Text("Añadir item"),
+          title: Text("Editar item"),
         ),
         body: Container(
           padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 50.0),
@@ -40,6 +46,8 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Laboratorio',
                   ),
+                  initialValue: laboratorio,
+                  enabled: false,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
                     laboratorio = val;
@@ -49,6 +57,8 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Nombre',
                   ),
+                  initialValue: nombre,
+                  enabled: false,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
                     nombre = val;
@@ -58,6 +68,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Categoria',
                   ),
+                  initialValue: categoria,
                   onChanged: (val) {
                     categoria = val;
                   },
@@ -66,6 +77,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Localizacion',
                   ),
+                  initialValue: localizacion,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
                     localizacion = val;
@@ -75,7 +87,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Cantidades',
                   ),
-                  
+                  initialValue: cantidades,
                   keyboardType: TextInputType.number,
                   inputFormatters: <TextInputFormatter>[
                     WhitelistingTextInputFormatter.digitsOnly
@@ -88,6 +100,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Unidadaes',
                   ),
+                  initialValue: unidades,
                   onChanged: (val) {
                     unidades = val;
                   },
@@ -96,6 +109,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Referencia',
                   ),
+                  initialValue: referencia,
                   onChanged: (val) {
                     referencia = val;
                   },
@@ -104,6 +118,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Casa Comercial',
                   ),
+                  initialValue: casaCom,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
                     casaCom = val;
@@ -114,6 +129,7 @@ class EditItem extends StatelessWidget {
                     labelText: 'Fecha de Caducidad',
                     hintText: "dd-mm-yyyy",
                   ),
+                  initialValue: fechaCad,
                   keyboardType: TextInputType.number,
                   onChanged: (val) {
                     fechaCad = val;
@@ -123,6 +139,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Observaciones',
                   ),
+                  initialValue: observaciones,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
                     observaciones = val;
@@ -132,6 +149,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Fotografia *WIP*',
                   ),
+                  initialValue: fotografia,
                   onChanged: (val) {
                     fotografia = val;
                   },
@@ -140,6 +158,7 @@ class EditItem extends StatelessWidget {
                   decoration: InputDecoration(
                     labelText: 'Ficha de seguridad',
                   ),
+                  initialValue: fichaSeg,
                   textCapitalization: TextCapitalization.sentences,
                   onChanged: (val) {
                     fichaSeg = val;
@@ -149,7 +168,7 @@ class EditItem extends StatelessWidget {
                 RaisedButton(
                   color: Colors.pink,
                   child: Text(
-                    'Introducir ítem',
+                    'Guardar cambios',
                     style: TextStyle(color: Colors.white),
                   ),
                   onPressed: () async {
@@ -167,7 +186,7 @@ class EditItem extends StatelessWidget {
                         fotografia,
                         fichaSeg);
 
-                        //Navigator.pop(context);
+                        Navigator.pop(context);
                   },
                 ),
               ],

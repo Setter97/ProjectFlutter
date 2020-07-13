@@ -167,6 +167,10 @@ class FirebaseConnectDB {
     return databaseReference.collection('labsTest').document("$nomLab").collection("Reactivos").snapshots();
   }
 
+  Stream<DocumentSnapshot> itemStream(nomLab,nomItem){
+    return databaseReference.collection('labsTest').document("$nomLab").collection("Reactivos").document(nomItem).snapshots();
+  }
+
 //Lista de materiales laboratorio pasado por parámetro
   Future llistaMateriales(nomLab) async {
     QuerySnapshot qn = await databaseReference
