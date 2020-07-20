@@ -18,6 +18,7 @@ class AddItem extends StatelessWidget {
     var observaciones = "";
     var fotografia = "";
     var fichaSeg = "";
+
     //FirebaseConnectDB fireDB = new FirebaseConnectDB();
     return Scaffold(
         appBar: AppBar(
@@ -165,6 +166,7 @@ class AddItem extends StatelessWidget {
                         fotografia,
                         fichaSeg);
 
+                        
                         //Navigator.pop(context);
                   },
                 ),

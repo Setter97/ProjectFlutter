@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:test_db/firebaseDB/firebaseConnectDB.dart';
 import 'package:test_db/screens/AddMaterial.dart';
 import 'package:test_db/screens/EditItem.dart';
+import 'screens/PruebasScreen.dart';
 import 'package:test_db/util/logInGoogle.dart';
 import 'screens/ShowItemDetails.dart';
 import 'screens/ShowItems.dart';
@@ -29,6 +30,7 @@ void main() {
       ShowCountDetails.routeName: (context) => ShowCountDetails(),
       AddMaterial.routeName: (context) => AddMaterial(),
       EditItem.routeName:(context)=> EditItem(),
+      PruebasScreen.routeName:(context)=>PruebasScreen(),
     },
   ));
 }
@@ -99,6 +101,13 @@ class HomeScreen extends StatelessWidget {
               },
             ),
           
+          RaisedButton(
+              child: Text('Cosa'),
+              onPressed: () {
+                Navigator.pushNamed(context, PruebasScreen.routeName);
+              },
+            ),
+
           ],
         ),
       ),
